@@ -1,0 +1,136 @@
+{% extends "base.html" %} {% block content %}
+
+<section class="blog-posts">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+
+        <!-- Banner Ends Here -->
+        <div class="all-blog-posts">
+          <div class="row">
+            {% for post in blog_post %}
+            <div class="col-lg-12">
+              <div class="blog-post">
+                <div class="blog-thumb">
+                  <img src="{{ url_for('static', filename=post['blog-thumb'])}}" alt="{{ post['alt-thumb'] }}" />
+                </div>
+                <div class="down-content">
+                  <span>{{ post['kategori'] }}</span>
+                  <a href="post-details.html"
+                    ><h4>{{ post['judul'] }}</h4></a
+                  >
+                  <ul class="post-info">
+                    {% for k, v in post['author'].items() %}
+                    <li><a href="{{ v }}">{{ k }}</a></li>
+                    {% endfor %}
+                    <li><a href="#">{{ post['tanggal'] }}</a></li>
+                    <li><a href="#">{{ post['comment'] }} Comments</a></li>
+                  </ul>
+                  <p>
+                    {{ post['text'] }}
+                  </p>
+                  <div class="post-options">
+                    <div class="row">
+                      <div class="col-6">
+                        <ul class="post-tags">
+                          <li><i class="fa fa-tags"></i></li>
+                          {% for k, v in post['tags'].items() %}
+                          <li><a href="{{ v }}">{{ k }}</a></li>
+                          {% endfor%}
+                        </ul>
+                      </div>
+                      <div class="col-6">
+                        <ul class="post-share">
+                          <li><i class="fa fa-share-alt"></i></li>
+                          <li><a href="#">Facebook</a>,</li>
+                          <li><a href="#"> Twitter</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+            <!-- Banner Ends Here -->
+
+            <div class="col-lg-12">
+              <div class="main-button">
+                <a href="blog.html">View All Posts</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="sidebar">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="sidebar-item search">
+                <form id="search_form" name="gs" method="GET" action="#">
+                  <input
+                    type="text"
+                    name="q"
+                    class="searchText"
+                    placeholder="type to search..."
+                    autocomplete="on"
+                  />
+                </form>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="sidebar-item recent-posts">
+                <div class="sidebar-heading">
+                  <h2>Recent Posts</h2>
+                </div>
+                <div class="content">
+                  <ul>
+                    {% for post in recent_post %}
+                    <li>
+                      <a href="{{ post['link'] }}">
+                        <h5>
+                          {{ post['judul'] }}
+                        </h5>
+                        <span>{{ post['tanggal'] }}</span>
+                      </a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="sidebar-item categories">
+                <div class="sidebar-heading">
+                  <h2>Categories</h2>
+                </div>
+                <div class="content">
+                  <ul>
+                    {% for k, v in categories.items() %}
+                    <li><a href="{{v}}">- {{k}}</a></li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="sidebar-item tags">
+                <div class="sidebar-heading">
+                  <h2>Tag Clouds</h2>
+                </div>
+                <div class="content">
+                  <ul>
+                    {% for k, v in tags.items() %}
+                    <li><a href="{{v}}">{{k}}</a></li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
