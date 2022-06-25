@@ -56,6 +56,12 @@ input.main-button {
 	transition: all .3s;
 }
 
+.avatar {
+	vertical-align: middle;
+	width: 100px;
+	height: auto;
+	min-width: 50px;
+  }
 .form-group {
     margin-bottom: 1rem;
     display: flex;
@@ -97,6 +103,11 @@ input.main-button {
 	letter-spacing: 0.5px;
 }
 
+
+
+/* preloader new */
+
+/* end preloader */
 #preloader {
   overflow: hidden;
   background: #f48840;

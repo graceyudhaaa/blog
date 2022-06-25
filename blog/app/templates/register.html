@@ -14,7 +14,7 @@
                                     
                                     {% if form.username.errors %}
                                         {{ form.username(class="form-control-lg is-invalid") }}
-                                        <div class="invalid-feedback">
+                                        <div class="text-danger">
                                             {% for error in  form.username.errors %}
                                             <span>{{error}}</span>
                                             {% endfor %}
@@ -29,7 +29,7 @@
                                     
                                     {% if form.email.errors %}
                                         {{ form.email(class="form-control-lg is-invalid") }}
-                                        <div class="invalid-feedback">
+                                        <div class="text-danger">
                                             {% for error in  form.email.errors %}
                                             <span>{{error}}</span>
                                             {% endfor %}
@@ -43,7 +43,7 @@
                                     
                                     {% if form.password.errors %}
                                         {{ form.password(class="form-control-lg is-invalid") }}
-                                        <div class="invalid-feedback">
+                                        <div class="text-danger">
                                             {% for error in  form.password.errors %}
                                             <span>{{error}}</span>
                                             {% endfor %}
@@ -57,7 +57,7 @@
                                     
                                     {% if form.confirm_password.errors %}
                                         {{ form.confirm_password(class="form-control-lg is-invalid") }}
-                                        <div class="invalid-feedback">
+                                        <div class="text-danger">
                                             {% for error in  form.confirm_password.errors %}
                                             <span>{{error}}</span>
                                             {% endfor %}
