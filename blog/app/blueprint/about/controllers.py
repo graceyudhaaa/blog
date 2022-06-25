@@ -9,4 +9,5 @@ about = Blueprint(
 
 @about.route("/about")
 def index():
-    return render_template("about.html")
+    title = "About"
+    return render_template("about.html", title=title)

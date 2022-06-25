@@ -43,6 +43,23 @@ h1,h2,h3,h4,h5,h6 {
 	text-transform: uppercase;
 	transition: all .3s;
 }
+input.main-button {
+	display: inline-block;
+	border: none;
+	background-color: #f48840;
+	color: #fff;
+	font-size: 13px;
+	font-weight: 500;
+	padding: 12px 20px;
+	text-transform: uppercase;
+	transition: all .3s;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
 
 .main-button a:hover {
 	background-color: #fb9857;

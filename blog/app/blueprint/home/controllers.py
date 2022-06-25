@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, current_app
+
 
 home = Blueprint("home", __name__, template_folder="templates", static_folder="static")
 
@@ -112,6 +113,8 @@ tags = {
 
 @home.route("/")
 def index():
+    # print([i for i in current_app.db["post"].find({})])  # database testing
+
     return render_template(
         "home.html",
         blog_post=blog_post,

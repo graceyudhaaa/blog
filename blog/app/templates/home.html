@@ -4,7 +4,6 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8">
-
         <!-- Banner Ends Here -->
         <div class="all-blog-posts">
           <div class="row">
@@ -12,13 +11,14 @@
             <div class="col-lg-12">
               <div class="blog-post">
                 <div class="blog-thumb">
-                  <img src="{{ url_for('static', filename=post['blog-thumb'])}}" alt="{{ post['alt-thumb'] }}" />
+                  <img
+                    src="{{ url_for('static', filename=post['blog-thumb'])}}"
+                    alt="{{ post['alt-thumb'] }}"
+                  />
                 </div>
                 <div class="down-content">
                   <span>{{ post['kategori'] }}</span>
-                  <a href="post-details.html"
-                    ><h4>{{ post['judul'] }}</h4></a
-                  >
+                  <a href="post-details.html"><h4>{{ post['judul'] }}</h4></a>
                   <ul class="post-info">
                     {% for k, v in post['author'].items() %}
                     <li><a href="{{ v }}">{{ k }}</a></li>
@@ -26,9 +26,7 @@
                     <li><a href="#">{{ post['tanggal'] }}</a></li>
                     <li><a href="#">{{ post['comment'] }} Comments</a></li>
                   </ul>
-                  <p>
-                    {{ post['text'] }}
-                  </p>
+                  <p>{{ post['text'] }}</p>
                   <div class="post-options">
                     <div class="row">
                       <div class="col-6">
@@ -88,9 +86,7 @@
                     {% for post in recent_post %}
                     <li>
                       <a href="{{ post['link'] }}">
-                        <h5>
-                          {{ post['judul'] }}
-                        </h5>
+                        <h5>{{ post['judul'] }}</h5>
                         <span>{{ post['tanggal'] }}</span>
                       </a>
                     </li>

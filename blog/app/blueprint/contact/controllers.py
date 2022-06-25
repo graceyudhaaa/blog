@@ -7,4 +7,5 @@ contact = Blueprint(
 
 @contact.route("/contact")
 def index():
-    return render_template("contact.html")
+    title = "Contact us"
+    return render_template("contact.html", title=title)
