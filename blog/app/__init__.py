@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 from dotenv import load_dotenv
 from pymongo import MongoClient
 
@@ -29,6 +29,8 @@ def create_app():
 
     bcrypt.init_app(app)
     login_manager.init_app(app)
+    login_manager.login_view = "auth.login"
+    login_manager.login_message_category = "info"
 
     app.register_error_handler(404, page_not_found)
 
