@@ -39,6 +39,7 @@ h1,h2,h3,h4,h5,h6 {
 	color: #fff;
 	font-size: 13px;
 	font-weight: 500;
+	width: 100%;
 	padding: 12px 20px;
 	text-transform: uppercase;
 	transition: all .3s;

@@ -10,6 +10,11 @@ class User:
         self.email = email
         self.avatar = avatar
 
+        if username == "graceyudha":
+            self.role = "admin"
+        else:
+            self.role = "user"
+
     def is_authenticated(self):
         return True
 
