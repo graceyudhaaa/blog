@@ -6,7 +6,7 @@ from flask import (
     render_template,
     url_for,
     current_app,
-    jsonify,
+    request,
 )
 from flask_login import login_user, logout_user, login_required, current_user
 
@@ -100,8 +100,9 @@ def login():
             )
             login_user(user_obj, remember=form.remember.data)
             flash("Logged in successfully!", category="success")
+            next_page = request.args.get("next")
 
-            return redirect(url_for("home.index"))
+            return redirect(next_page) if next_page else redirect(url_for("home.index"))
         else:
             flash("Wrong username or password!", category="danger")
 
