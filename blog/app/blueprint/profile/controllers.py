@@ -27,10 +27,10 @@ def save_image(form_picture):
     pic_filename = random_hex + file_extension
     pic_path = f"{current_app.root_path}/static/user_upload/images/{pic_filename}"
 
-    output_size = (512, 512)
+    output_size = (256, 256)
     image = Image.open(form_picture)
-    image.thumbnail(output_size)
-    image.save(pic_path)
+    image.thumbnail(output_size, Image.ANTIALIAS)
+    image.save(pic_path, optimize=True, quality=20, dpi=[300, 300])
 
     return pic_filename
 

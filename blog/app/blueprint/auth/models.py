@@ -1,4 +1,8 @@
+import os
 from ...extensions import bcrypt
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # usermixin pymongo don't neccesary
 
@@ -10,7 +14,7 @@ class User:
         self.email = email
         self.avatar = avatar
 
-        if username == "graceyudha":
+        if self._id == os.environ["ADMIN_ID"]:
             self.role = "admin"
         else:
             self.role = "user"
