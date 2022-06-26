@@ -2,9 +2,10 @@ import os
 import secrets
 from PIL import Image
 from flask import current_app
+import numpy as np
 
 
-def flatten_list(xss):
+def flatten_2d_list(xss):
     return [x for xs in xss for x in xs]
 
 

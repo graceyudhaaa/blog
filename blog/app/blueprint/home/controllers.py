@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, current_app
 import pymongo
 
-from ...utils import flatten_list
+from ...utils import flatten_2d_list
 
 
 home = Blueprint("home", __name__, template_folder="templates", static_folder="static")
@@ -40,18 +40,22 @@ def index():
         )
     ]
 
-    tags = set(flatten_list(
-        [
-            i["tags"]
-            for i in current_app.db["posts"].find(
-                {},
-                {
-                    "_id": 0,
-                    "tags": 1,
-                },
-            )
-        ]
-    ))
+    tags = set(
+        flatten_2d_list(
+            [
+                i["tags"]
+                for i in current_app.db["posts"].find(
+                    {},
+                    {
+                        "_id": 0,
+                        "tags": 1,
+                    },
+                )
+            ]
+        )
+    )
+
+    print(tags)
 
     return render_template(
         "home.html",

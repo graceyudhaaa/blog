@@ -11,6 +11,7 @@ from flask import (
 )
 from flask_login import current_user, login_required
 from bson.objectid import ObjectId
+from slugify import slugify
 
 from ...decorators import admin_required
 
@@ -36,7 +37,15 @@ def create_post():
         author = {"_id": ObjectId(current_user._id), "username": current_user.username}
         created_at = datetime.datetime.utcnow()
 
-        print(form.thumbnail.data)
+        num_of_slug_exist = current_app.db["posts"].count_documents(
+            {"slug": slugify(post_title)}
+        )
+
+        if num_of_slug_exist == 0:
+            slug = slugify(post_title)
+        else:
+            slug = f"{slugify(post_title)}-{num_of_slug_exist + 1}"
+
         if form.thumbnail.data:
             thumbnail = save_image(form.thumbnail.data)
             thumbnail_url = url_for(
@@ -54,6 +63,7 @@ def create_post():
             "title": post_title,
             "thumbnail": thumbnail_url,
             "thumbnail_alt": thumbnail_alt,
+            "slug": slug,
             "content": content,
             "category": category,
             "tags": tags,
@@ -66,3 +76,8 @@ def create_post():
         flash("your post has been created", "success")
         return redirect(url_for("home.index"))
     return render_template("create_post.html", title=title, form=form)
+
+
+@post.route("post/<slug>")
+def post_detail(slug):
+    post_in_db = current_app.db["posts"].find_one({"slug": slug})
