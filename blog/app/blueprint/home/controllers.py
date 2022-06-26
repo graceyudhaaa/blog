@@ -16,61 +16,6 @@ blog_post = [
         "text": """Stand Blog is a free HTML CSS template for your CMS theme. You can easily adapt or customize it for any kind of CMS or website builder. You are allowed to use it for your business. You are NOT allowed to re-distribute the template ZIP file on any template collection site for the download purpose.""",
         "tags": {"Beauty": "#beauty", "Nature": "#nature"},
     },
-    {
-        "blog-thumb": "images/blog-post-02.jpg",
-        "alt-thumb": "blog-post-02",
-        "kategori": "Healthy",
-        "judul": "Etiam id diam vitae lorem dictum",
-        "author": {"Admin": "#admin"},
-        "tanggal": "May 31, 2020",
-        "comment": 12,
-        "text": """Stand Blog is a free HTML CSS template for your CMS theme. You can easily adapt or customize it for any kind of CMS or website builder. You are allowed to use it for your business. You are NOT allowed to re-distribute the template ZIP file on any template collection site for the download purpose.""",
-        "tags": {"Best Templates": "#besttemplates", "TemplateMo": "#TemplateMo"},
-    },
-    {
-        "blog-thumb": "images/blog-post-03.jpg",
-        "alt-thumb": "blog-post-03",
-        "kategori": "Fashion",
-        "judul": "Donec tincidunt leo nec magna",
-        "author": {"Admin": "#admin"},
-        "tanggal": "May 31, 2020",
-        "comment": 12,
-        "text": """Stand Blog is a free HTML CSS template for your CMS theme. You can easily adapt or customize it for any kind of CMS or website builder. You are allowed to use it for your business. You are NOT allowed to re-distribute the template ZIP file on any template collection site for the download purpose.""",
-        "tags": {"HTML CSS": "#HTMLCSS", "Photoshop": "#Photoshop"},
-    },
-    {
-        "blog-thumb": "images/blog-post-01.jpg",
-        "alt-thumb": "blog-post-01",
-        "kategori": "Lifestyle",
-        "judul": "Best Template Website for HTML CSS",
-        "author": {"Admin": "#admin"},
-        "tanggal": "May 31, 2020",
-        "comment": 12,
-        "text": """Stand Blog is a free HTML CSS template for your CMS theme. You can easily adapt or customize it for any kind of CMS or website builder. You are allowed to use it for your business. You are NOT allowed to re-distribute the template ZIP file on any template collection site for the download purpose.""",
-        "tags": {"Beauty": "#beauty", "Nature": "#nature"},
-    },
-    {
-        "blog-thumb": "images/blog-post-02.jpg",
-        "alt-thumb": "blog-post-02",
-        "kategori": "Healthy",
-        "judul": "Etiam id diam vitae lorem dictum",
-        "author": {"Admin": "#admin"},
-        "tanggal": "May 31, 2020",
-        "comment": 12,
-        "text": """Stand Blog is a free HTML CSS template for your CMS theme. You can easily adapt or customize it for any kind of CMS or website builder. You are allowed to use it for your business. You are NOT allowed to re-distribute the template ZIP file on any template collection site for the download purpose.""",
-        "tags": {"Best Templates": "#besttemplates", "TemplateMo": "#TemplateMo"},
-    },
-    {
-        "blog-thumb": "images/blog-post-03.jpg",
-        "alt-thumb": "blog-post-03",
-        "kategori": "Fashion",
-        "judul": "Donec tincidunt leo nec magna",
-        "author": {"Admin": "#admin"},
-        "tanggal": "May 31, 2020",
-        "comment": 12,
-        "text": """Stand Blog is a free HTML CSS template for your CMS theme. You can easily adapt or customize it for any kind of CMS or website builder. You are allowed to use it for your business. You are NOT allowed to re-distribute the template ZIP file on any template collection site for the download purpose.""",
-        "tags": {"HTML CSS": "#HTMLCSS", "Photoshop": "#Photoshop"},
-    },
 ]
 
 recent_post = [
@@ -113,7 +58,7 @@ tags = {
 
 @home.route("/")
 def index():
-    # print([i for i in current_app.db["post"].find({})])  # database testing
+    print(list(current_app.db["posts"].find({})))  # database testing
 
     return render_template(
         "home.html",

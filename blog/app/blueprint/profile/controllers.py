@@ -1,6 +1,3 @@
-import os
-import secrets
-from PIL import Image
 from flask import (
     Blueprint,
     redirect,
@@ -14,25 +11,11 @@ from flask_login import login_required, current_user
 from bson.objectid import ObjectId
 
 from .forms import UpdateProfileForm
+from ...utils import save_image
 
 profile = Blueprint(
     "profile", __name__, template_folder="templates", static_folder="static"
 )
-
-
-def save_image(form_picture):
-    random_hex = secrets.token_hex(8)
-    # blank one suppose to be filename
-    _, file_extension = os.path.splitext(form_picture.filename)
-    pic_filename = random_hex + file_extension
-    pic_path = f"{current_app.root_path}/static/user_upload/images/{pic_filename}"
-
-    output_size = (256, 256)
-    image = Image.open(form_picture)
-    image.thumbnail(output_size, Image.ANTIALIAS)
-    image.save(pic_path, optimize=True, quality=20, dpi=[300, 300])
-
-    return pic_filename
 
 
 @profile.route("/profile", methods=["GET", "POST"])

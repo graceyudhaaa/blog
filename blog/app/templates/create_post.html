@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% block content %}
+    <section class="register-form">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-6 col-sm-12 my-5">
+                        <form method="POST" action="" enctype="multipart/form-data">
+                            {{ form.hidden_tag() }} {# CSRF Token #}
+                            <fieldset class="form-group">
+                                <legend class="card-title border-bottom mb-4">Create Post</legend>
+                                <div class="form-group">
+                                    {{ form.title.label(class="form-control-label fs-5") }}
+                                    
+                                    {% if form.title.errors %}
+                                        {{ form.title(class="form-control is-invalid") }}
+                                        <div class="text-danger">
+                                            {% for error in  form.title.errors %}
+                                            <span>{{error}}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                         {{ form.title(class="form-control") }}
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.thumbnail.label(class="form-control-label fs-5") }}
+                                
+                                    {{ form.thumbnail(class="form-control") }}
+
+                                    {% if form.thumbnail.errors %}
+                                        <div class="text-danger">
+                                            {% for error in  form.thumbnail.errors %}
+                                            <span>{{error}}</span><br>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.thumbnail_alt.label(class="form-control-label fs-5") }}
+                                    
+                                    {% if form.thumbnail_alt.errors %}
+                                        {{ form.thumbnail_alt(class="form-control is-invalid") }}
+                                        <div class="text-danger">
+                                            {% for error in  form.thumbnail_alt.errors %}
+                                            <span>{{error}}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                         {{ form.thumbnail_alt(class="form-control") }}
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.content.label(class="form-control-label fs-5") }}
+                                    
+                                    {% if form.content.errors %}
+                                        {{ form.content(class="form-control is-invalid") }}
+                                        <div class="text-danger">
+                                            {% for error in  form.content.errors %}
+                                            <span>{{error}}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                         {{ form.content(class="form-control") }}
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.category.label(class="form-control-label fs-5") }}
+                                    
+                                    {% if form.category.errors %}
+                                        {{ form.category(class="form-control is-invalid") }}
+                                        <div class="text-danger">
+                                            {% for error in  form.category.errors %}
+                                            <span>{{error}}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                         {{ form.category(class="form-control") }}
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.tags.label(class="form-control-label fs-5") }}
+                                    <small>separate tag by comma</small>
+                                    
+                                    {% if form.tags.errors %}
+                                        {{ form.tags(class="form-control is-invalid") }}
+                                        <div class="text-danger">
+                                            {% for error in  form.tags.errors %}
+                                            <span>{{error}}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                         {{ form.tags(class="form-control") }}
+                                    {% endif %}
+                                </div>
+                            </fieldset>
+                            <div class="form-group">
+                                {{ form.submit(class="main-button")}}
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{# email
+password
+remember
+submit #}
