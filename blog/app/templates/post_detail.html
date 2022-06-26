@@ -19,7 +19,10 @@
                       <a href="">
                         <span>{{ post['category'] }}</span>
                       </a>
-                      <h4>{{ post['title'] }}</h4>
+                      <h4 class="my-0">{{ post['title'] }}</h4>
+                      {% if not post['is_active'] %}
+                      <small>This post is inactive</small>
+                      {%endif%}
                       <ul class="post-info">
                         <li>
                           <a href="#">{{ post['author']['username'] }}</a>

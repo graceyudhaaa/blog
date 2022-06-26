@@ -4,16 +4,18 @@ import pymongo
 from ...utils import flatten_2d_list
 
 
-home = Blueprint("home", __name__, template_folder="templates", static_folder="static")
+dashboard = Blueprint(
+    "dashboard", __name__, template_folder="templates", static_folder="static"
+)
 
 
-@home.route("/")
+@dashboard.route("/dashboard")
 def index():
     # print(list(current_app.db["posts"].find({})))  # database testing
 
     blog_post = list(
         current_app.db["posts"]
-        .find({"is_active": True})
+        .find({})
         .limit(5)
         .sort("last_modified", pymongo.DESCENDING)
     )
@@ -66,6 +68,7 @@ def index():
 
     return render_template(
         "home.html",
+        dashboard=True,
         blog_post=blog_post,
         recent_post=recent_post,
         categories=categories,

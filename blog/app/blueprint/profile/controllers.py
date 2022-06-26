@@ -32,7 +32,7 @@ def index():
         update = {"username": username, "email": email}
 
         if form.avatar.data:
-            avatar = save_image(form.avatar.data)
+            avatar = save_image(form.avatar.data, (256, 256))
             current_user.avatar = url_for(
                 "static", filename=f"user_upload/images/{avatar}"
             )

@@ -9,7 +9,7 @@ def flatten_2d_list(xss):
     return [x for xs in xss for x in xs]
 
 
-def save_image(form_picture, output_size=(256, 256)):
+def save_image(form_picture, output_size=None):
     random_hex = secrets.token_hex(8)
     # blank one suppose to be filename
     _, file_extension = os.path.splitext(form_picture.filename)

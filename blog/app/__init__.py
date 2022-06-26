@@ -14,6 +14,7 @@ from .blueprint.contact.controllers import contact
 from .blueprint.auth.controllers import auth
 from .blueprint.profile.controllers import profile
 from .blueprint.post.controllers import post
+from .blueprint.dashboard.controllers import dashboard
 
 load_dotenv()
 
@@ -58,6 +59,7 @@ def create_app():
     app.register_blueprint(auth)
     app.register_blueprint(profile)
     app.register_blueprint(post)
+    app.register_blueprint(dashboard)
     # ===================Registering Blueprint===================
 
     return app
