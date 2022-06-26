@@ -25,15 +25,35 @@
                     <h4 class="text-right">Profile Settings</h4>
                 </div>
                 <div class="row mt-2">
-                    <div class="col-md-12"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" value=""></div>
-                    <div class="col-md-12 mt-2"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div>
-                    <div class="col-md-12 mt-2"><label class="labels">Address Line 1</label><input type="text" class="form-control" placeholder="enter address line 1" value=""></div>
-                    <div class="col-md-12 mt-2"><label class="labels">Address Line 2</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                    <div class="col-md-12 mt-2"><label class="labels">Postcode</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                    <div class="col-md-12 mt-2"><label class="labels">State</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                    <div class="col-md-12 mt-2"><label class="labels">Area</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                    <div class="col-md-12 mt-2"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" value=""></div>
-                    <div class="col-md-12 mt-2"><label class="labels">Education</label><input type="text" class="form-control" placeholder="education" value=""></div>
+                    <div class="col-md-12">
+                        {{ form.username.label(class="form-control-label") }}
+                                        
+                        {% if form.username.errors %}
+                            {{ form.username(class="form-control is-invalid") }}
+                            <div class="text-danger">
+                                {% for error in  form.username.errors %}
+                                <span>{{error}}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                                {{ form.username(class="form-control", value=current_user.username) }}
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-12 mt-2">
+                        {{ form.email.label(class="form-control-label") }}
+                                        
+                        {% if form.email.errors %}
+                            {{ form.email(class="form-control is-invalid") }}
+                            <div class="text-danger">
+                                {% for error in  form.email.errors %}
+                                <span>{{error}}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                                {{ form.email(class="form-control", value=current_user.email) }}
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="mt-5 text-center">
                     <input class="main-button w-100" id="submit" name="submit" type="submit" value="Save Profile">
