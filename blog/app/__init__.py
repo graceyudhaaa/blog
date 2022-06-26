@@ -28,6 +28,9 @@ def create_app():
 
     app.config["SECRET_KEY"] = SECRET_KEY
 
+    if os.path.exists(f"{app.root_path}/static/user_upload/images") == False:
+        os.makedirs(f"{app.root_path}/static/user_upload/images")
+
     bcrypt.init_app(app)
     login_manager.init_app(app)
     login_manager.login_view = "auth.login"

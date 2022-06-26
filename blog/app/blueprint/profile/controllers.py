@@ -1,4 +1,6 @@
-import re
+import os
+import secrets
+from PIL import Image
 from flask import (
     Blueprint,
     redirect,
@@ -18,6 +20,21 @@ profile = Blueprint(
 )
 
 
+def save_image(form_picture):
+    random_hex = secrets.token_hex(8)
+    # blank one suppose to be filename
+    _, file_extension = os.path.splitext(form_picture.filename)
+    pic_filename = random_hex + file_extension
+    pic_path = f"{current_app.root_path}/static/user_upload/images/{pic_filename}"
+
+    output_size = (512, 512)
+    image = Image.open(form_picture)
+    image.thumbnail(output_size)
+    image.save(pic_path)
+
+    return pic_filename
+
+
 @profile.route("/profile", methods=["GET", "POST"])
 @login_required
 def index():
@@ -30,6 +47,13 @@ def index():
         email = form.email.data
 
         update = {"username": username, "email": email}
+
+        if form.avatar.data:
+            avatar = save_image(form.avatar.data)
+            current_user.avatar = url_for(
+                "static", filename=f"user_upload/images/{avatar}"
+            )
+            update["avatar"] = current_user.avatar
 
         current_user.username = username
         current_user.email = email

@@ -1,73 +1,79 @@
 {% extends "base.html" %}
 {% block content %}
 <!-- profile template by https://bbbootstrap.com/users/edgar-burongoh-33849 -->
-<div class="container rounded bg-white mt-5 mb-5">
-    <div class="row justify-content-center">
-        <div class="col-md-3 border-end">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                <div class="position-relative">
-                    <div class="btn profile-button position-absolute bottom-0 end-0" type="button">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x" style="color: #f48840;"></i>
-                            <i class="fa fa-edit fa-stack-1x fa-inverse"></i>
-                          </span> 
-                        </div>
+<form action="" method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }} {# CSRF Token #}
+    <div class="container rounded bg-white mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-3 border-end">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                    
                     <img class="rounded-circle mt-5" width="150px" src="{{ current_user.avatar }}">
+                    
+                    <h3 class="mt-2">{{ current_user.username }}</h3>
+                    <p class="mt-1">{{ current_user.email }}</p>
+                    <span> </span>
                 </div>
-                <h3 class="mt-2">{{ current_user.username }}</h3>
-                <p class="mt-1">{{ current_user.email }}</p>
-                <span> </span>
             </div>
-        </div>
-        <div class="col-md-5 border-end">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">Profile Settings</h4>
-                </div>
-                <form method="POST" action="">
+            <div class="col-md-5 border-end">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Profile Settings</h4>
+                    </div>
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                {{ form.username.label(class="form-control-label") }}
+                                                
+                                {% if form.username.errors %}
+                                    {{ form.username(class="form-control is-invalid") }}
+                                    <div class="text-danger">
+                                        {% for error in  form.username.errors %}
+                                        <span>{{error}}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                        {{ form.username(class="form-control", ) }}
+                                {% endif %}
+                            </div>
+        
+                            <div class="col-md-12 mt-2">
+                                {{ form.email.label(class="form-control-label") }}
+                                                
+                                {% if form.email.errors %}
+                                    {{ form.email(class="form-control is-invalid") }}
+                                    <div class="text-danger">
+                                        {% for error in  form.email.errors %}
+                                        <span>{{error}}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                        {{ form.email(class="form-control",) }}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                {{ form.avatar.label(class="form-control-label") }}
+                                
+                                {{ form.avatar(class="form-control") }}
 
-                    {{ form.hidden_tag() }} {# CSRF Token #}
-                    <div class="row mt-2">
-                        <div class="col-md-12">
-                            {{ form.username.label(class="form-control-label") }}
-                                            
-                            {% if form.username.errors %}
-                                {{ form.username(class="form-control is-invalid") }}
-                                <div class="text-danger">
-                                    {% for error in  form.username.errors %}
-                                    <span>{{error}}</span>
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                    {{ form.username(class="form-control", ) }}
-                            {% endif %}
+                                {% if form.avatar.errors %}
+                                    <div class="text-danger">
+                                        {% for error in  form.avatar.errors %}
+                                        <span>{{error}}</span><br>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
                         </div>
-    
-                        <div class="col-md-12 mt-2">
-                            {{ form.email.label(class="form-control-label") }}
-                                            
-                            {% if form.email.errors %}
-                                {{ form.email(class="form-control is-invalid") }}
-                                <div class="text-danger">
-                                    {% for error in  form.email.errors %}
-                                    <span>{{error}}</span>
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                    {{ form.email(class="form-control",) }}
-                            {% endif %}
+                        <div class="mt-5 text-center">
+                            <div class="form-group">
+                                {{ form.submit(class="main-button w-100")}}
+                            </div>
+                            <!-- <input class="main-button w-100" id="submit" name="submit" type="submit" value="Save Profile"> -->
                         </div>
-                    </div>
-                    <div class="mt-5 text-center">
-                        <div class="form-group">
-                            {{ form.submit(class="main-button w-100")}}
-                        </div>
-                        <!-- <input class="main-button w-100" id="submit" name="submit" type="submit" value="Save Profile"> -->
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
-</div>
-</div>
-</div>
+    </div>
+    </div>
+    </div>
+</form>
 {% endblock %}

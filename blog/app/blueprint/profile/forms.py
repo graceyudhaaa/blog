@@ -1,5 +1,6 @@
 from flask_login import current_user
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask import current_app
@@ -10,6 +11,7 @@ class UpdateProfileForm(FlaskForm):
         "Username", validators=[DataRequired(), Length(min=1, max=50)]
     )
     email = StringField("Email", validators=[DataRequired(), Email()])
+    avatar = FileField("Avatar", validators=[FileAllowed(["jpg", "png"])])
     submit = SubmitField("Save")
 
     def validate_username(self, username):
