@@ -4,6 +4,10 @@ from PIL import Image
 from flask import current_app
 
 
+def flatten_list(xss):
+    return [x for xs in xss for x in xs]
+
+
 def save_image(form_picture, output_size=(256, 256)):
     random_hex = secrets.token_hex(8)
     # blank one suppose to be filename

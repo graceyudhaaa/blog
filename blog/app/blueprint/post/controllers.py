@@ -24,8 +24,6 @@ post = Blueprint("post", __name__, template_folder="templates", static_folder="s
 @login_required
 @admin_required
 def create_post():
-    # if current_user.role != "admin":
-    #     abort(403)
 
     title = "Create Post"
     form = PostForm()

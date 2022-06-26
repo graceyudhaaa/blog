@@ -11,29 +11,35 @@
             <div class="col-lg-12">
               <div class="blog-post">
                 <div class="blog-thumb">
-                  <img
-                    src="{{ url_for('static', filename=post['blog-thumb'])}}"
-                    alt="{{ post['alt-thumb'] }}"
-                  />
+                  <a href="">
+                    <img
+                      src="{{ post['thumbnail'] }}"
+                      alt="{{ post['thumbnail_alt'] }}"
+                    />
+                  </a>
                 </div>
                 <div class="down-content">
-                  <span>{{ post['kategori'] }}</span>
-                  <a href="post-details.html"><h4>{{ post['judul'] }}</h4></a>
+                  <a href="">
+                    <span>{{ post['category'] }}</span>
+                  </a>
+                  <a href="post-details.html"><h4>{{ post['title'] }}</h4></a>
                   <ul class="post-info">
-                    {% for k, v in post['author'].items() %}
-                    <li><a href="{{ v }}">{{ k }}</a></li>
-                    {% endfor %}
-                    <li><a href="#">{{ post['tanggal'] }}</a></li>
-                    <li><a href="#">{{ post['comment'] }} Comments</a></li>
+                    <li><a href="#">{{ post['author']['username'] }}</a></li>
+                    <li>
+                      <a href="#"
+                        >{{ post['last_modified'].strftime('%d %B, %Y') }}</a
+                      >
+                    </li>
+                    <!-- <li><a href="#">{{ post['comment'] }} Comments</a></li> -->
                   </ul>
-                  <p>{{ post['text'] }}</p>
+                  <p>{{ post['content'] }}</p>
                   <div class="post-options">
                     <div class="row">
                       <div class="col-6">
                         <ul class="post-tags">
                           <li><i class="fa fa-tags"></i></li>
-                          {% for k, v in post['tags'].items() %}
-                          <li><a href="{{ v }}">{{ k }}</a></li>
+                          {% for tag in post['tags'] %}
+                          <li><a href="#">{{ tag.title() }}</a></li>
                           {% endfor%}
                         </ul>
                       </div>
@@ -85,9 +91,11 @@
                   <ul>
                     {% for post in recent_post %}
                     <li>
-                      <a href="{{ post['link'] }}">
-                        <h5>{{ post['judul'] }}</h5>
-                        <span>{{ post['tanggal'] }}</span>
+                      <a href="#">
+                        <h5>{{ post['title'] }}</h5>
+                        <span
+                          >{{ post['created_at'].strftime('%d %B, %Y') }}</span
+                        >
                       </a>
                     </li>
                     {% endfor %}
@@ -102,8 +110,8 @@
                 </div>
                 <div class="content">
                   <ul>
-                    {% for k, v in categories.items() %}
-                    <li><a href="{{v}}">- {{k}}</a></li>
+                    {% for category in categories %}
+                    <li><a href="#">- {{category}}</a></li>
                     {% endfor %}
                   </ul>
                 </div>
@@ -116,8 +124,8 @@
                 </div>
                 <div class="content">
                   <ul>
-                    {% for k, v in tags.items() %}
-                    <li><a href="{{v}}">{{k}}</a></li>
+                    {% for tag in tags %}
+                    <li><a href="#">{{tag.title()}}</a></li>
                     {% endfor %}
                   </ul>
                 </div>
