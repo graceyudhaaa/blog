@@ -12,6 +12,8 @@ from flask import (
 from flask_login import current_user, login_required
 from bson.objectid import ObjectId
 
+from ...decorators import admin_required
+
 from .forms import PostForm
 from ...utils import save_image
 
@@ -20,9 +22,10 @@ post = Blueprint("post", __name__, template_folder="templates", static_folder="s
 
 @post.route("/create_post", methods=["GET", "POST"])
 @login_required
+@admin_required
 def create_post():
-    if current_user.role != "admin":
-        abort(403)
+    # if current_user.role != "admin":
+    #     abort(403)
 
     title = "Create Post"
     form = PostForm()
