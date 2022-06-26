@@ -1,4 +1,4 @@
-from fileinput import filename
+from bson.objectid import ObjectId
 from flask import (
     Blueprint,
     flash,
@@ -20,8 +20,8 @@ auth = Blueprint("auth", __name__, static_folder="static", template_folder="temp
 
 # ===================Register and Login===================
 @login_manager.user_loader
-def load_user(email):
-    user = current_app.db["users"].find_one({"username": email})
+def load_user(_id):
+    user = current_app.db["users"].find_one({"_id": ObjectId(_id)})
 
     return User(
         _id=str(user["_id"]),

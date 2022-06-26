@@ -24,40 +24,47 @@
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="text-right">Profile Settings</h4>
                 </div>
-                <div class="row mt-2">
-                    <div class="col-md-12">
-                        {{ form.username.label(class="form-control-label") }}
-                                        
-                        {% if form.username.errors %}
-                            {{ form.username(class="form-control is-invalid") }}
-                            <div class="text-danger">
-                                {% for error in  form.username.errors %}
-                                <span>{{error}}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                                {{ form.username(class="form-control", value=current_user.username) }}
-                        {% endif %}
-                    </div>
+                <form method="POST" action="">
 
-                    <div class="col-md-12 mt-2">
-                        {{ form.email.label(class="form-control-label") }}
-                                        
-                        {% if form.email.errors %}
-                            {{ form.email(class="form-control is-invalid") }}
-                            <div class="text-danger">
-                                {% for error in  form.email.errors %}
-                                <span>{{error}}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                                {{ form.email(class="form-control", value=current_user.email) }}
-                        {% endif %}
+                    {{ form.hidden_tag() }} {# CSRF Token #}
+                    <div class="row mt-2">
+                        <div class="col-md-12">
+                            {{ form.username.label(class="form-control-label") }}
+                                            
+                            {% if form.username.errors %}
+                                {{ form.username(class="form-control is-invalid") }}
+                                <div class="text-danger">
+                                    {% for error in  form.username.errors %}
+                                    <span>{{error}}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                    {{ form.username(class="form-control", ) }}
+                            {% endif %}
+                        </div>
+    
+                        <div class="col-md-12 mt-2">
+                            {{ form.email.label(class="form-control-label") }}
+                                            
+                            {% if form.email.errors %}
+                                {{ form.email(class="form-control is-invalid") }}
+                                <div class="text-danger">
+                                    {% for error in  form.email.errors %}
+                                    <span>{{error}}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                    {{ form.email(class="form-control",) }}
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
-                <div class="mt-5 text-center">
-                    <input class="main-button w-100" id="submit" name="submit" type="submit" value="Save Profile">
-                </div>
+                    <div class="mt-5 text-center">
+                        <div class="form-group">
+                            {{ form.submit(class="main-button w-100")}}
+                        </div>
+                        <!-- <input class="main-button w-100" id="submit" name="submit" type="submit" value="Save Profile"> -->
+                    </div>
+                </form>
             </div>
         </div>
 </div>

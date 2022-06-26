@@ -25,7 +25,7 @@ class User:
         return False
 
     def get_id(self):
-        return self.username
+        return self._id  # this is for the user_loader parameter
 
     @staticmethod
     def validate_login(password_hash, password):
