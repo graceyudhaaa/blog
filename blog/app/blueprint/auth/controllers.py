@@ -116,11 +116,3 @@ def logout():
 
 
 # ===================<END> Register and Login===================
-
-
-@auth.route("/profile")
-@login_required
-def profile():
-    username = current_user.username
-    title = f"Profile {username}"
-    return render_template("profile.html", title=title)
