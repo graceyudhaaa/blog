@@ -22,6 +22,11 @@ from ...utils import save_image, flatten_2d_list
 
 post = Blueprint("post", __name__, template_folder="templates", static_folder="static")
 
+# redirect /post route to home
+@post.route("/post")
+def redirect_to_home():
+    return redirect(url_for("home.index"))
+
 
 @post.route("/create_post", methods=["GET", "POST"])
 @login_required
@@ -148,6 +153,15 @@ def post_detail(slug):
 def delete_post(slug):
     current_app.db["posts"].find_one_and_update(
         {"slug": slug}, {"$set": {"is_active": False}}
+    )
+
+    return redirect(request.referrer)
+
+
+@post.route("/post/restore/<slug>")
+def restore_post(slug):
+    current_app.db["posts"].find_one_and_update(
+        {"slug": slug}, {"$set": {"is_active": True}}
     )
 
     return redirect(request.referrer)

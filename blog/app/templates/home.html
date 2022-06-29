@@ -74,6 +74,7 @@
                           <i class="fa fa-edit"></i>
                         </div>
                       </a>
+                      {% if post['is_active'] %}
                       <a
                         href="{{url_for('post.delete_post', slug=post['slug'])}}"
                       >
@@ -83,6 +84,17 @@
                           <i class="fa fa-trash"></i>
                         </div>
                       </a>
+                      {% else %}
+                      <a
+                        href="{{url_for('post.restore_post', slug=post['slug'])}}"
+                      >
+                        <div
+                          class="plus-button d-flex align-items-center justify-content-center"
+                        >
+                          <i class="fa fa-refresh"></i>
+                        </div>
+                      </a>
+                      {% endif %}
                     </div>
                     {%endif%}
                   </div>

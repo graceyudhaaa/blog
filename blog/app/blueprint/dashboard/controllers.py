@@ -11,16 +11,12 @@ dashboard = Blueprint(
 
 @dashboard.route("/dashboard")
 def index():
-    # print(list(current_app.db["posts"].find({})))  # database testing
-
     blog_post = list(
         current_app.db["posts"]
         .find({})
         .limit(5)
         .sort("last_modified", pymongo.DESCENDING)
     )
-
-    # blog_post = get_post_limit(5)
 
     recent_post = list(
         current_app.db["posts"]
