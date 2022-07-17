@@ -99,7 +99,7 @@
                     {%endif%}
                   </div>
 
-                  <p>{{ post['content']|truncate(500, True) }}</p>
+                  <p>{{ post['content']|safe|truncate(500, True) }}</p>
                   <div class="post-options">
                     <div class="row">
                       <div class="col-6">

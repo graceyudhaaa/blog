@@ -3,7 +3,7 @@ from flask import Flask, render_template, url_for
 from dotenv import load_dotenv
 from pymongo import MongoClient
 
-from .extensions import bcrypt, login_manager
+from .extensions import bcrypt, login_manager, ckeditor
 
 
 from .config import *
@@ -42,9 +42,13 @@ def create_app():
 
     # ===================Registering Extension===================
     bcrypt.init_app(app)
+
     login_manager.init_app(app)
     login_manager.login_view = "auth.login"
     login_manager.login_message_category = "info"
+
+    ckeditor.init_app(app)
+    app.config["CKEDITOR_PKG_TYPE"] = "standard-all"
     # ===================Registering Extension===================
 
     # ===================Registering Error===================

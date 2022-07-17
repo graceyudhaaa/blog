@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, current_app
-import pymongo
 
 from ...utils import flatten_2d_list
 from .models import Home

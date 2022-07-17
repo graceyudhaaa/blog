@@ -58,7 +58,7 @@
                     </div>
                     {%endif%}
                   </div>
-                  <p>{{ post['content'] }}</p>
+                  <p>{{ post['content'] | safe }}</p>
                   <div class="post-options">
                     <div class="row">
                       <div class="col-6">
