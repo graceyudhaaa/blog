@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block head_content %}
-  {{ ckeditor.load() }}
-  {{ ckeditor.config(name='content') }}
+
 {% endblock %}
 
 {% block content %}
@@ -106,4 +105,6 @@
     </div>
   </div>
 </section>
+{{ ckeditor.load() }}
+{{ ckeditor.config(name='content') }}
 {% endblock %} {# email password remember submit #}

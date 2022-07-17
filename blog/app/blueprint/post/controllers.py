@@ -1,3 +1,4 @@
+import os
 import datetime
 from fileinput import filename
 from flask import (
@@ -9,8 +10,10 @@ from flask import (
     flash,
     request,
     url_for,
+    send_from_directory
 )
 from flask_login import current_user, login_required
+from flask_ckeditor import upload_fail, upload_success
 from bson.objectid import ObjectId
 from slugify import slugify
 import pymongo
@@ -230,3 +233,21 @@ def update_post(slug):
     return render_template(
         "form_post.html", title=title, form=form, legend="Update Post"
     )
+
+
+@post.route('/files/<filename>')
+def uploaded_files(filename):
+    path = current_app.config['UPLOADED_PATH']
+    return send_from_directory(path, filename)
+
+
+@post.route('/upload', methods=['POST'])
+def upload():
+    f = request.files.get('upload')
+    print(current_app.config['UPLOADED_PATH'])
+    extension = f.filename.split('.')[-1].lower()
+    if extension not in ['jpg', 'gif', 'png', 'jpeg']:
+        return upload_fail(message='Image only!')
+    f.save(os.path.join(current_app.config['UPLOADED_PATH'], f.filename))
+    url = url_for('post.uploaded_files', filename=f.filename)
+    return upload_success(url, filename=f.filename)

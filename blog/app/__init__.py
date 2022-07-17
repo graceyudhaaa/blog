@@ -37,6 +37,9 @@ def create_app():
 
     app.config["SECRET_KEY"] = SECRET_KEY
 
+    basedir = os.path.abspath(os.path.dirname(__file__))
+    app.config['UPLOADED_PATH'] = os.path.join(basedir, 'static/user_upload/images')
+
     if os.path.exists(f"{app.root_path}/static/user_upload/images") == False:
         os.makedirs(f"{app.root_path}/static/user_upload/images")
 
@@ -48,7 +51,10 @@ def create_app():
     login_manager.login_message_category = "info"
     
     ckeditor.init_app(app)
-    app.config["CKEDITOR_PKG_TYPE"] = "full-all"
+    # app.config["CKEDITOR_PKG_TYPE"] = "full-all"
+    app.config['CKEDITOR_SERVE_LOCAL'] = True
+    # app.config['CKEDITOR_HEIGHT'] = 400
+    app.config['CKEDITOR_FILE_UPLOADER'] = 'post.upload'
     # ===================Registering Extension===================
 
     # ===================Registering Error===================
