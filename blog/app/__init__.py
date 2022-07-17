@@ -46,9 +46,9 @@ def create_app():
     login_manager.init_app(app)
     login_manager.login_view = "auth.login"
     login_manager.login_message_category = "info"
-
+    
     ckeditor.init_app(app)
-    app.config["CKEDITOR_PKG_TYPE"] = "standard-all"
+    app.config["CKEDITOR_PKG_TYPE"] = "full-all"
     # ===================Registering Extension===================
 
     # ===================Registering Error===================
