@@ -10,11 +10,9 @@ db = Home(current_app)
 
 @home.route("/")
 def index():
-    blog_post = db.get_post_limit(5, {"is_active": True})
+    blog_post = db.get_post({"is_active": True})
 
-    recent_post = db.get_post(
-        {"is_active": True}, {"_id": 0, "title": 1, "slug": 1, "created_at": 1}
-    )
+    recent_post = db.get_post_limit(5,{"is_active": True}, {"_id": 0, "title": 1, "slug": 1, "created_at": 1})
 
     categories = set(
         [

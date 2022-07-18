@@ -15,6 +15,7 @@ from .blueprint.auth.controllers import auth
 from .blueprint.profile.controllers import profile
 from .blueprint.post.controllers import post
 from .blueprint.dashboard.controllers import dashboard
+from .blueprint.ckeditor.controllers import ckeditor_controller
 
 load_dotenv()
 
@@ -54,7 +55,9 @@ def create_app():
     # app.config["CKEDITOR_PKG_TYPE"] = "full-all"
     app.config['CKEDITOR_SERVE_LOCAL'] = True
     # app.config['CKEDITOR_HEIGHT'] = 400
-    app.config['CKEDITOR_FILE_UPLOADER'] = 'post.upload'
+    app.config['CKEDITOR_FILE_UPLOADER'] = 'ckeditor_controller.upload'
+    app.config['CKEDITOR_HEIGHT'] = 500
+    # app.config['CKEDITOR_EXTRA_PLUGINS'] = ['texzilla', ]
     # ===================Registering Extension===================
 
     # ===================Registering Error===================
@@ -70,6 +73,7 @@ def create_app():
     app.register_blueprint(profile)
     app.register_blueprint(post)
     app.register_blueprint(dashboard)
+    app.register_blueprint(ckeditor_controller)
     # ===================Registering Blueprint===================
 
     return app

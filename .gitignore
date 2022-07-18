@@ -2,4 +2,5 @@
 .vscode
 .env
 *.tmp
+user_upload
 __pycache__

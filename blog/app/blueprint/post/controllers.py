@@ -10,10 +10,9 @@ from flask import (
     flash,
     request,
     url_for,
-    send_from_directory
+    send_from_directory,
 )
 from flask_login import current_user, login_required
-from flask_ckeditor import upload_fail, upload_success
 from bson.objectid import ObjectId
 from slugify import slugify
 import pymongo
@@ -22,8 +21,11 @@ from ...decorators import admin_required
 
 from .forms import PostForm
 from ...utils import save_image, flatten_2d_list
+from .models import Posts
 
 post = Blueprint("post", __name__, template_folder="templates", static_folder="static")
+
+db = Posts(current_app)
 
 # redirect /post route to home
 @post.route("/post")
@@ -42,6 +44,7 @@ def create_post():
     if form.validate_on_submit():
         post_title = form.title.data
         slug = slugify(form.slug.data)
+        description = form.description.data
         content = form.content.data
         category = form.category.data.lower()
         tags = [i.lower().strip() for i in form.tags.data.split(",")]
@@ -49,7 +52,7 @@ def create_post():
         created_at = datetime.datetime.utcnow()
 
         if form.thumbnail.data:
-            thumbnail = save_image(form.thumbnail.data, (770, 770))
+            thumbnail = save_image(form.thumbnail.data, (1125, 1125))
             thumbnail_url = url_for(
                 "static", filename=f"user_upload/images/{thumbnail}"
             )
@@ -66,6 +69,7 @@ def create_post():
             "thumbnail": thumbnail_url,
             "thumbnail_alt": thumbnail_alt,
             "slug": slug,
+            "description": description,
             "content": content,
             "category": category,
             "tags": tags,
@@ -73,6 +77,7 @@ def create_post():
             "created_at": created_at,
             "last_modified": created_at,
             "is_active": True,
+            "views": 0,
         }
 
         current_app.db["posts"].insert_one(post_dict)
@@ -100,47 +105,25 @@ def post_detail(slug):
 
     title = post_in_db["title"].title()
 
-    recent_post = list(
-        current_app.db["posts"]
-        .find(
-            {"is_active": True},
-            {
-                "_id": 0,
-                "title": 1,
-                "slug": 1,
-                "created_at": 1,
-            },
-        )
-        .sort("created_at", pymongo.DESCENDING)
+    recent_post = db.get_post_limit(
+        5, {"is_active": True}, {"_id": 0, "title": 1, "slug": 1, "created_at": 1}
     )
 
     categories = set(
         [
             i["category"]
-            for i in current_app.db["posts"].find(
-                {"is_active": True},
-                {
-                    "_id": 0,
-                    "category": 1,
-                },
-            )
+            for i in db.get_post({"is_active": True}, {"_id": 0, "category": 1})
         ]
     )
 
     tags = set(
         flatten_2d_list(
-            [
-                i["tags"]
-                for i in current_app.db["posts"].find(
-                    {},
-                    {
-                        "_id": 0,
-                        "tags": 1,
-                    },
-                )
-            ]
+            [i["tags"] for i in db.get_post({"is_active": True}, {"_id": 0, "tags": 1})]
         )
     )
+
+    if not ("dashboard" in request.referrer):
+        db.increment_views(slug)
 
     return render_template(
         "post_detail.html",
@@ -190,6 +173,7 @@ def update_post(slug):
     if form.validate_on_submit():
         post_title = form.title.data
         new_slug = slugify(form.slug.data)
+        description = form.description.data
         content = form.content.data
         category = form.category.data.lower()
         tags = [i.lower().strip() for i in form.tags.data.split(",")]
@@ -200,6 +184,7 @@ def update_post(slug):
             "title": post_title,
             "slug": new_slug,
             "content": content,
+            "description": description,
             "category": category,
             "tags": tags,
             "last_modified": last_modified,
@@ -225,6 +210,7 @@ def update_post(slug):
         form.title.data = post_in_db["title"]
         form.slug.data = post_in_db["slug"]
         form.thumbnail_alt.data = post_in_db["thumbnail_alt"]
+        form.description.data = post_in_db["description"]
         form.content.data = post_in_db["content"]
         form.category.data = post_in_db["category"]
         form.tags.data = ", ".join(list(post_in_db["tags"]))
@@ -233,21 +219,3 @@ def update_post(slug):
     return render_template(
         "form_post.html", title=title, form=form, legend="Update Post"
     )
-
-
-@post.route('/files/<filename>')
-def uploaded_files(filename):
-    path = current_app.config['UPLOADED_PATH']
-    return send_from_directory(path, filename)
-
-
-@post.route('/upload', methods=['POST'])
-def upload():
-    f = request.files.get('upload')
-    print(current_app.config['UPLOADED_PATH'])
-    extension = f.filename.split('.')[-1].lower()
-    if extension not in ['jpg', 'gif', 'png', 'jpeg']:
-        return upload_fail(message='Image only!')
-    f.save(os.path.join(current_app.config['UPLOADED_PATH'], f.filename))
-    url = url_for('post.uploaded_files', filename=f.filename)
-    return upload_success(url, filename=f.filename)

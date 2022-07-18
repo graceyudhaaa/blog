@@ -483,6 +483,8 @@ header .navbar {
 
 .blog-posts {
 	margin-top: 20px;
+	/* border-top: 1px solid #eee;
+	border-bottom: 1px solid #eee; */
 }
 
 .blog-posts .blog-post {
@@ -559,12 +561,10 @@ header .navbar {
 	color: #3b5998;
 }
 
-.blog-posts .down-content p {
+/* .blog-posts .down-content p {
 	padding: 25px 0px;
 	margin: 25px 0px;
-	border-top: 1px solid #eee;
-	border-bottom: 1px solid #eee;
-}
+} */
 
 .blog-posts .down-content ul.post-share {
 	text-align: right;

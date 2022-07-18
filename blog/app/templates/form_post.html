@@ -1,13 +1,9 @@
-{% extends 'base.html' %}
-{% block head_content %}
-
-{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% block head_content %} {% endblock %} {% block
+content %}
 <section class="register-form">
   <div class="container">
     <div class="row d-flex justify-content-center">
-      <div class="col-lg-6 col-sm-12 my-5">
+      <div class="col-lg-9 col-sm-12 my-5">
         <form method="POST" action="" enctype="multipart/form-data">
           {{ form.hidden_tag() }} {# CSRF Token #}
           <fieldset class="form-group">
@@ -58,6 +54,18 @@
               %}
             </div>
             <div class="form-group">
+              {{ form.description.label(class="form-control-label fs-5") }} {%
+              if form.description.errors %} {{
+              form.description(class="form-control is-invalid") }}
+              <div class="text-danger">
+                {% for error in form.description.errors %}
+                <span>{{error}}</span>
+                {% endfor %}
+              </div>
+              {% else %} {{ form.description(class="form-control") }} {% endif
+              %}
+            </div>
+            <div class="form-group">
               {{ form.content.label(class="form-control-label fs-5") }} {% if
               form.content.errors %} {{ form.content(class="form-control
               is-invalid") }}
@@ -105,6 +113,6 @@
     </div>
   </div>
 </section>
-{{ ckeditor.load() }}
-{{ ckeditor.config(name='content') }}
-{% endblock %} {# email password remember submit #}
+{{ ckeditor.load(custom_url=url_for('static',
+filename='js/ckeditor/ckeditor.js')) }} {{ ckeditor.config(name='content') }} {%
+endblock %} {# email password remember submit #}
