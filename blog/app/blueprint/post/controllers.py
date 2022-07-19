@@ -104,23 +104,7 @@ def post_detail(slug):
             abort(404)
 
     title = post_in_db["title"].title()
-
-    recent_post = db.get_post_limit(
-        5, {"is_active": True}, {"_id": 0, "title": 1, "slug": 1, "created_at": 1}
-    )
-
-    categories = set(
-        [
-            i["category"]
-            for i in db.get_post({"is_active": True}, {"_id": 0, "category": 1})
-        ]
-    )
-
-    tags = set(
-        flatten_2d_list(
-            [i["tags"] for i in db.get_post({"is_active": True}, {"_id": 0, "tags": 1})]
-        )
-    )
+   
 
     if not ("dashboard" in request.referrer):
         db.increment_views(slug)
@@ -129,9 +113,6 @@ def post_detail(slug):
         "post_detail.html",
         title=title,
         post=post_in_db,
-        recent_post=recent_post,
-        categories=categories,
-        tags=tags,
     )
 
 
@@ -218,4 +199,91 @@ def update_post(slug):
 
     return render_template(
         "form_post.html", title=title, form=form, legend="Update Post"
+    )
+
+@post.route('/category/<category>')
+def find_category(category):
+    post = db.get_post({'category':category,"is_active": True},)
+    recent_post = db.get_post_limit(
+        5, {"is_active": True}, {"_id": 0, "title": 1, "slug": 1, "created_at": 1}
+    )
+
+    categories = set(
+        [
+            i["category"]
+            for i in db.get_post({"is_active": True}, {"_id": 0, "category": 1})
+        ]
+    )
+
+    tags = set(
+        flatten_2d_list(
+            [i["tags"] for i in db.get_post({"is_active": True}, {"_id": 0, "tags": 1})]
+        )
+    )
+
+    return render_template(
+        "home.html",
+        blog_post=post,
+        recent_post=recent_post,
+        categories=categories,
+        tags=tags,
+    )
+
+
+
+@post.route('/tags/<tag>')
+def find_tags(tag):
+    tag = tag.replace('_', ' ')
+    post = db.get_post({'tags':{'$in': [tag]},"is_active": True},)
+    recent_post = db.get_post_limit(
+        5, {"is_active": True}, {"_id": 0, "title": 1, "slug": 1, "created_at": 1}
+    )
+
+    categories = set(
+        [
+            i["category"]
+            for i in db.get_post({"is_active": True}, {"_id": 0, "category": 1})
+        ]
+    )
+
+    tags = set(
+        flatten_2d_list(
+            [i["tags"] for i in db.get_post({"is_active": True}, {"_id": 0, "tags": 1})]
+        )
+    )
+
+    return render_template(
+        "home.html",
+        blog_post=post,
+        recent_post=recent_post,
+        categories=categories,
+        tags=tags,
+    )
+
+@post.route('/author/<author>')
+def find_author(author):
+    post = db.get_post({'author.username': author,"is_active": True},)
+    recent_post = db.get_post_limit(
+        5, {"is_active": True}, {"_id": 0, "title": 1, "slug": 1, "created_at": 1}
+    )
+
+    categories = set(
+        [
+            i["category"]
+            for i in db.get_post({"is_active": True}, {"_id": 0, "category": 1})
+        ]
+    )
+
+    tags = set(
+        flatten_2d_list(
+            [i["tags"] for i in db.get_post({"is_active": True}, {"_id": 0, "tags": 1})]
+        )
+    )
+
+    return render_template(
+        "home.html",
+        blog_post=post,
+        recent_post=recent_post,
+        categories=categories,
+        tags=tags,
     )

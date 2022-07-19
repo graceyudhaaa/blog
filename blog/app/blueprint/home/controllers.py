@@ -1,4 +1,6 @@
-from flask import Blueprint, render_template, current_app
+
+import re
+from flask import Blueprint, render_template, current_app, request
 
 from ...utils import flatten_2d_list
 from .models import Home
@@ -10,7 +12,13 @@ db = Home(current_app)
 
 @home.route("/")
 def index():
-    blog_post = db.get_post({"is_active": True})
+    if request.args.get('q'):
+        query = request.args.get('q')
+
+        rgx = re.compile(f'.*{query}.*', re.IGNORECASE)
+        blog_post = list(current_app.db['posts'].find({"title": rgx, "is_active": True}))
+    else:
+        blog_post = db.get_post({"is_active": True})
 
     recent_post = db.get_post_limit(5,{"is_active": True}, {"_id": 0, "title": 1, "slug": 1, "created_at": 1})
 

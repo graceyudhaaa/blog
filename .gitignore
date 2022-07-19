@@ -1,6 +1,7 @@
 .venv
 .vscode
 .env
+pyproject.toml
 *.tmp
 user_upload
 __pycache__

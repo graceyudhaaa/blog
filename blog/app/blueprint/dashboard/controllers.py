@@ -14,7 +14,6 @@ def index():
     blog_post = list(
         current_app.db["posts"]
         .find({})
-        .limit(5)
         .sort("last_modified", pymongo.DESCENDING)
     )
 
@@ -29,6 +28,7 @@ def index():
                 "created_at": 1,
             },
         )
+        .limit(5)
         .sort("created_at", pymongo.DESCENDING)
     )
 

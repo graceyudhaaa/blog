@@ -16,8 +16,12 @@
                 <div class="down-content">
                   <div class="row d-flex">
                     <div class="col mb-3">
-                      <a href="">
-                        <span>{{ post['category'] }}</span>
+                      <a
+                        href="{{ url_for('post.find_category', category=post['category']) }}"
+                      >
+                        <span class="post-category"
+                          >{{ post['category'] }}</span
+                        >
                       </a>
                       <h4 class="my-0">{{ post['title'] }}</h4>
                       {% if not post['is_active'] %}
@@ -92,4 +96,13 @@
     </div>
   </div>
 </section>
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/a11y-dark.min.css"
+/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+<script>
+  hljs.highlightAll();
+</script>
 {% endblock%}

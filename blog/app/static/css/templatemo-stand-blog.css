@@ -102,6 +102,13 @@ input.main-button {
 	transition: all .3s;
 }
 
+/* code block */
+/* For all <code> */
+pre {
+	border-radius: 15px;
+}
+/* end code block */
+
 .avatar {
 	border-radius: 50%;
 	margin-top: 0;
@@ -483,6 +490,8 @@ header .navbar {
 
 .blog-posts {
 	margin-top: 20px;
+	padding: 25px 0px;
+	margin: 25px 0px;
 	/* border-top: 1px solid #eee;
 	border-bottom: 1px solid #eee; */
 }
@@ -505,13 +514,21 @@ header .navbar {
 	border-bottom: 1px solid #eee;
 }
 
-.blog-posts .down-content span {
+span.post-category {
 	font-size: 18px;
 	text-transform: uppercase;
 	letter-spacing: 0.5px;
 	font-weight: 900;
 	color: #3b5998;
 }
+
+/* .blog-posts .down-content span {
+	font-size: 18px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	font-weight: 900;
+	color: #3b5998;
+} */
 
 .blog-posts .down-content h4 {
 	font-size: 24px;
@@ -562,8 +579,7 @@ header .navbar {
 }
 
 /* .blog-posts .down-content p {
-	padding: 25px 0px;
-	margin: 25px 0px;
+	
 } */
 
 .blog-posts .down-content ul.post-share {

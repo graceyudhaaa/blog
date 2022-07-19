@@ -42,18 +42,20 @@ def register():
 
     if form.validate_on_submit():
 
-        username = form.username.data
+        username        = form.username.data
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode(
-            "utf-8"
-        )
-        email = form.email.data
+                                "utf-8"
+                            )
+        email           = form.email.data
 
+        
         user = {
-            "username": username,
-            "email": email,
-            "password": hashed_password,
-            "avatar": url_for("static", filename="images/default_avatar.jpg"),
+            "username"  : username,
+            "email"     : email,
+            "password"  : hashed_password,
+            "avatar"    : url_for("static", filename="images/default_avatar.jpg"),
         }
+        
 
         try:
             current_app.db["users"].insert_one(user)
@@ -93,10 +95,10 @@ def login():
 
         if bcrypt.check_password_hash(user_in_db["password"], password):
             user_obj = User(
-                _id=str(user_in_db["_id"]),
-                username=user_in_db["username"],
-                email=user_in_db["email"],
-                avatar=user_in_db["avatar"],
+                _id         = str(user_in_db["_id"]),
+                username    = user_in_db["username"],
+                email       = user_in_db["email"],
+                avatar      = user_in_db["avatar"],
             )
             login_user(user_obj, remember=form.remember.data)
             flash("Logged in successfully!", category="success")
