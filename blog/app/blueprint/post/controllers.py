@@ -20,7 +20,7 @@ import pymongo
 from ...decorators import admin_required
 
 from .forms import PostForm
-from ...utils import save_image, flatten_2d_list
+from ...utils import save_image, flatten_2d_list, save_image_b64
 from .models import Posts
 
 post = Blueprint("post", __name__, template_folder="templates", static_folder="static")
@@ -52,12 +52,14 @@ def create_post():
         created_at = datetime.datetime.utcnow()
 
         if form.thumbnail.data:
-            thumbnail = save_image(form.thumbnail.data, (1125, 1125))
-            thumbnail_url = url_for(
-                "static", filename=f"user_upload/images/{thumbnail}"
-            )
+            thumbnail = save_image_b64(form.thumbnail.data, (1125, 1125))
+            thumbnail_url = thumbnail
+            # thumbnail_url = url_for(
+            #     "static", filename=f"user_upload/images/{thumbnail}"
+            # )
         else:
-            thumbnail_url = url_for("static", filename="images/default_thumbnail.png")
+        #     thumbnail_url = url_for("static", filename="images/default_thumbnail.png")
+            thumbnail_url = None
 
         if form.thumbnail_alt.data:
             thumbnail_alt = form.thumbnail_alt.data
@@ -105,9 +107,9 @@ def post_detail(slug):
 
     title = post_in_db["title"].title()
    
-
-    if not ("dashboard" in request.referrer):
-        db.increment_views(slug)
+    if request.referrer:
+        if not ("dashboard" in request.referrer):
+            db.increment_views(slug)
 
     return render_template(
         "post_detail.html",
@@ -177,10 +179,12 @@ def update_post(slug):
             post_dict["thumbnail_alt"] = thumbnail_alt
 
         if form.thumbnail.data:
-            thumbnail = save_image(form.thumbnail.data, (770, 770))
-            thumbnail_url = url_for(
-                "static", filename=f"user_upload/images/{thumbnail}"
-            )
+            thumbnail = save_image_b64(form.thumbnail.data, (1125, 1125))
+            thumbnail_url = thumbnail
+            # thumbnail = save_image(form.thumbnail.data, (770, 770))
+            # thumbnail_url = url_for(
+            #     "static", filename=f"user_upload/images/{thumbnail}"
+            # )
             post_dict["thumbnail"] = thumbnail_url
 
         current_app.db["posts"].find_one_and_update({"slug": slug}, {"$set": post_dict})

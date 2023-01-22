@@ -28,6 +28,7 @@
             {% for post in blog_post %}
             <div class="col-lg-12">
               <div class="blog-post">
+                {% if post['thumbnail'] %}
                 <div class="blog-thumb">
                   <a href="{{url_for('post.post_detail', slug=post['slug'])}}">
                     <img
@@ -36,6 +37,7 @@
                     />
                   </a>
                 </div>
+                {% endif %}
                 <div class="down-content">
                   <div class="row d-flex">
                     <div class="col mb-3">

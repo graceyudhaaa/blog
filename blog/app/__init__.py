@@ -54,9 +54,9 @@ def create_app():
     ckeditor.init_app(app)
     app.config['CKEDITOR_SERVE_LOCAL'] = True
     # app.config['CKEDITOR_HEIGHT'] = 400
-    app.config['CKEDITOR_FILE_UPLOADER'] = 'ckeditor_controller.upload'
+    # app.config['CKEDITOR_FILE_UPLOADER'] = 'ckeditor_controller.upload'
     app.config['CKEDITOR_HEIGHT'] = 500
-    app.config['CKEDITOR_EXTRA_PLUGINS'] = ['texzilla', 'codesnippet']
+    # app.config['CKEDITOR_EXTRA_PLUGINS'] = ['texzilla', 'codesnippet']
     # ===================Registering Extension===================
 
     # ===================Registering Error===================

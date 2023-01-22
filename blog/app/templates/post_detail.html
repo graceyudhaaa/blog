@@ -7,12 +7,14 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="blog-post">
+                {% if post['thumbnail'] %}
                 <div class="blog-thumb">
                   <img
                     src="{{ post['thumbnail'] }}"
                     alt="{{ post['thumbnail_alt'] }}"
                   />
                 </div>
+                {% endif %}
                 <div class="down-content">
                   <div class="row d-flex">
                     <div class="col mb-3">
