@@ -9,6 +9,8 @@ from ...utils import (
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow import keras
 
+from datetime import datetime
+
 text_cleaning_dict = {
     "tokenizer_stopword_in_not_stemmed"         : text_cleaning_stopword_in_not_stemmed,
     "tokenizer_stopword_in_stemmed"             : text_cleaning_stopword_in_stemmed,
@@ -26,6 +28,7 @@ def api_test():
 
 @api.route('/api/predict', methods=['POST'])
 def predict():
+    start = datetime.now()
     data = request.json                         # get data from request
 
     text      = data['text']                    # get text
@@ -55,7 +58,8 @@ def predict():
     response = {"score": str(score),
                 "model": model_name,
                 "tokenizer": tokenizer_name,
-                "text_cleaning_func": tokenizer_name.replace("tokenizer", "text_cleaning") 
+                "text_cleaning_func": tokenizer_name.replace("tokenizer", "text_cleaning"),
+                "runtime": str((datetime.now() - start).total_seconds())
                }
 
     return jsonify(response)
