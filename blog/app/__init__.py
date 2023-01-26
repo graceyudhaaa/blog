@@ -16,6 +16,7 @@ from .blueprint.profile.controllers import profile
 from .blueprint.post.controllers import post
 from .blueprint.dashboard.controllers import dashboard
 from .blueprint.ckeditor.controllers import ckeditor_controller
+from .blueprint.api.controllers import api
 
 load_dotenv()
 
@@ -73,6 +74,7 @@ def create_app():
     app.register_blueprint(post)
     app.register_blueprint(dashboard)
     app.register_blueprint(ckeditor_controller)
+    app.register_blueprint(api)
     # ===================Registering Blueprint===================
 
     return app
